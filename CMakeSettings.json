@@ -10,8 +10,7 @@
       "cmakeCommandArgs": "",
       "buildCommandArgs": "-v",
       "ctestCommandArgs": "",
-      "cmakeToolchain": "C:/Users/oscar.s/Downloads/vcpkg/scripts/buildsystems/vcpkg.cmake",
-      "variables": []
+      "cmakeToolchain": "C:/Users/oscar/Desktop/PackagesAndDownloads/vcpkg/scripts/buildsystems/vcpkg.cmake"
     }
   ]
 }
