@@ -6,6 +6,7 @@
 class window
 {
   private:
+      GLFWwindow* mWindow;
   public:
     window(int w, int h, const char* window_name, bool visible);
     ~window();
