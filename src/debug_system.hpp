@@ -5,6 +5,7 @@
 class debug_system
 {
   private:
+      camera const* mCampPtr;
   public:
     debug_system(camera const*);
 

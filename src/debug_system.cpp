@@ -1,4 +1,5 @@
 #include "debug_system.hpp"
+#include "opengl.hpp"
 
 namespace {
     char const* c_vertex_shader = R"(
@@ -21,4 +22,40 @@ void main()
     out_color = uniform_color;
 }
 )";
+}
+
+debug_system::debug_system(camera const* cam)
+{
+    mCampPtr = cam;
+
+}
+void debug_system::draw_point(vec3 pt, vec4 color)
+{
+    //enable backface culling
+    glCullFace(GL_BACK);
+
+}
+void debug_system::draw_segment(vec3 s, vec3 e, vec4 color)
+{
+
+}
+void debug_system::draw_triangle(vec3 a, vec3 b, vec3 c, vec4 color)
+{
+
+}
+void debug_system::draw_aabb(vec3 c, vec3 size, vec4 color)
+{
+
+}
+void debug_system::draw_plane(vec3 pt, vec3 n, float scale, vec4 color)
+{
+
+}
+void debug_system::draw_sphere(vec3 c, float r, glm::vec4 color)
+{
+
+}
+void debug_system::draw_frustum_lines(mat4 const& vp, vec4 color)
+{
+
 }

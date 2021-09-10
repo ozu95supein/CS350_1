@@ -11,7 +11,7 @@ class window
     window(int w, int h, const char* window_name, bool visible);
     ~window();
     bool update();
-    void destroy();
+    void destroy(); //unused for now
 };
 
 #endif // __WINDOW_HPP__

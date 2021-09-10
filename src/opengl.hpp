@@ -10,6 +10,8 @@
 #include <vector>
 #include <string>
 
+#include <iostream>
+
 std::vector<glm::vec<4, unsigned char>> take_screenshoot(unsigned width, unsigned height);
 std::vector<glm::vec<4, unsigned char>> save_screenshoot(unsigned width, unsigned height, std::string const& filename);
 
