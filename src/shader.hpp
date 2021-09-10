@@ -15,5 +15,6 @@ public:
 	void SetVertAndFragStrings(char const* v, char const* f);
 	void CreatePrograme();
 	void UseShader();
+
 };
 #endif // __SHADER_HPP__
