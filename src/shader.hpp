@@ -8,13 +8,11 @@ private:
 	char const* vertShaderString = NULL;
 	char const* fragShaderString = NULL;
 	GLuint mShaderProgramID;
-	
+	GLuint CompileAttachShader(GLuint ID, const char* source, GLuint shaderType);
+	GLuint LinkProgram(GLuint programHandle);
 public:
-	ShaderClass();
+	ShaderClass(char const* v, char const* f);
 	~ShaderClass();
-	void SetVertAndFragStrings(char const* v, char const* f);
-	void CreatePrograme();
-	void UseShader();
-
+	unsigned int GetShaderID();
 };
 #endif // __SHADER_HPP__

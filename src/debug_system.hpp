@@ -1,13 +1,18 @@
 #ifndef __DEBUG_SYSTEM_HPP__
 #define __DEBUG_SYSTEM_HPP__
 #include "camera.hpp"
+#include "primitive.hpp"
+
+class Shader;
 
 class debug_system
 {
   private:
       camera const* mCampPtr;
+      primitive mPrimitivePoint;
+      Shader* mShader;
   public:
-    debug_system(camera const*);
+    debug_system(camera const* c);
 
     void draw_point(vec3 pt, vec4 color);
     void draw_segment(vec3 s, vec3 e, vec4 color);

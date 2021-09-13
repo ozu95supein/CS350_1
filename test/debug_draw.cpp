@@ -47,7 +47,7 @@ TEST(basic, draw_point)
 
     save_screenshoot(window_width, window_height, current_test_image_filename());
 }
-
+/*
 TEST(basic, draw_segment)
 {
     window w(window_width, window_height, test_name(), false);
@@ -175,3 +175,4 @@ TEST(extra, draw_frustum)
 
     save_screenshoot(window_width, window_height, current_test_image_filename());
 }
+*/

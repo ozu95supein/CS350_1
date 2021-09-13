@@ -1,6 +1,7 @@
 #include "debug_system.hpp"
 #include "opengl.hpp"
-
+#include "shader.hpp"
+//like a global var for this file only
 namespace {
     char const* c_vertex_shader = R"(
 #version 440 core
@@ -24,15 +25,17 @@ void main()
 )";
 }
 
-debug_system::debug_system(camera const* cam)
+debug_system::debug_system(camera const* c)
 {
-    mCampPtr = cam;
+    mCampPtr = c;
 
 }
 void debug_system::draw_point(vec3 pt, vec4 color)
 {
     //enable backface culling
     glCullFace(GL_BACK);
+    glUseProgram(mShader->GetShaderID());
+
 
 }
 void debug_system::draw_segment(vec3 s, vec3 e, vec4 color)
