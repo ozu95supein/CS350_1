@@ -26,10 +26,11 @@ ShaderClass::ShaderClass(char const* v, char const* f)
         std::cout << "Unable to LINK shader program." << std::endl;
         exit(EXIT_FAILURE);
     }
+    mShaderProgramID = ID;
 }
 ShaderClass::~ShaderClass()
 {
-
+    glDeleteProgram(mShaderProgramID);
 }
 GLuint ShaderClass::CompileAttachShader(GLuint ID, const char* source, GLuint shaderType)
 {
@@ -56,7 +57,6 @@ GLuint ShaderClass::CompileAttachShader(GLuint ID, const char* source, GLuint sh
             std::cout << c_log << std::endl;
             delete[] c_log;
         }
-
         return 0;
     }
     else
@@ -96,6 +96,9 @@ GLuint ShaderClass::LinkProgram(GLuint programHandle)
 
         return 0;
     }
-
     return programHandle;
+}
+unsigned int ShaderClass::GetShaderID()
+{
+    return mShaderProgramID;
 }

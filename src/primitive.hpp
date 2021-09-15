@@ -20,7 +20,9 @@ private:
 public:
 	primitive(P_TYPE p);	//constructor that will make primitives based on the type that is passed
 	~primitive();
-	
+	void AddDebugVertex(glm::vec3 p, glm::vec4 c);
+	void GenerateVertexBuffers();
+	void GeneratePointBuffers(GLuint& vbo, GLuint& vao);
 };
 
 #endif // __PRIMITIVE_HPP__

@@ -1,6 +1,8 @@
 #include "debug_system.hpp"
 #include "opengl.hpp"
 #include "shader.hpp"
+#include "primitive.hpp"
+
 //like a global var for this file only
 namespace {
     char const* c_vertex_shader = R"(
@@ -28,13 +30,24 @@ void main()
 debug_system::debug_system(camera const* c)
 {
     mCampPtr = c;
-
+    mShader = new ShaderClass(c_vertex_shader, c_fragment_shader);
+    
+}
+debug_system::~debug_system()
+{
+    delete(mShader);
+    mShader = NULL;
 }
 void debug_system::draw_point(vec3 pt, vec4 color)
 {
+    //create a primitive
+    primitive PrimitivePoint(E_POINT);
+
     //enable backface culling
     glCullFace(GL_BACK);
     glUseProgram(mShader->GetShaderID());
+    //Set uniforms
+    //set att position
 
 
 }
