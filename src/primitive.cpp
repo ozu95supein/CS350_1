@@ -74,6 +74,6 @@ void primitive::GeneratePointBuffers(GLuint& vbo, GLuint& vao)
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	//TOOD FIX
-	glBufferData(GL_ARRAY_BUFFER, (sizeof(DebugVertex)), mesh.GetVertices(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, (sizeof(DebugVertex)), (const void*)&(*(mVertexList.begin())), GL_STATIC_DRAW);
 
 }
