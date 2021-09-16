@@ -23,6 +23,8 @@ public:
 	void AddDebugVertex(glm::vec3 p, glm::vec4 c);
 	void GenerateVertexBuffers();
 	void GeneratePointBuffers(GLuint& vbo, GLuint& vao);
+	GLuint GetVAO();
+	GLuint GetVBO();
 };
 
 #endif // __PRIMITIVE_HPP__

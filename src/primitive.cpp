@@ -64,3 +64,11 @@ void primitive::GeneratePointBuffers(GLuint& vbo, GLuint& vao)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
+GLuint primitive::GetVAO()
+{
+
+}
+GLuint primitive::GetVBO()
+{
+
+}

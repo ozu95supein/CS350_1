@@ -7,7 +7,7 @@ class ShaderClass;
 class debug_system
 {
   private:
-      camera const* mCampPtr;
+      camera * mCampPtr;
       ShaderClass * mShader;
   public:
     debug_system(camera const* c);

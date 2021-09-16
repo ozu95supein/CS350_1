@@ -60,8 +60,10 @@ void debug_system::draw_point(vec3 pt, vec4 color)
     glm::mat4 MVP = p * v * ModelMatrix;
 
     //pass them to program
-    GLint model = glGetUniformLocation(Shader->GetShaderID(), "u_M");
-
+    GLint mvp = glGetUniformLocation(mShader->GetShaderID(), "uniform_mvp");
+    glUniformMatrix4fv(mvp, 1, GL_FALSE, &(MVP[0][0]));
+    //bind vao
+    glBindVertexArray();
 }
 void debug_system::draw_segment(vec3 s, vec3 e, vec4 color)
 {
