@@ -2,7 +2,7 @@
 #include "opengl.hpp"
 #include "shader.hpp"
 #include "primitive.hpp"
-
+#include "camera.hpp"
 //like a global var for this file only
 namespace {
     char const* c_vertex_shader = R"(
@@ -42,13 +42,25 @@ void debug_system::draw_point(vec3 pt, vec4 color)
 {
     //create a primitive
     primitive PrimitivePoint(E_POINT);
-
+    PrimitivePoint.AddDebugVertex(pt, color);
     //enable backface culling
     glCullFace(GL_BACK);
     glUseProgram(mShader->GetShaderID());
-    //Set uniforms
-    //set att position
+    
+    //create matrices
+    glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), pt);
+    glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(0.0f), glm::vec3(0.0, 0.0, 1.0));
+    glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+    //model matrix
+    glm::mat4 ModelMatrix = translationMatrix * rotationMatrix * scaleMatrix;//world space
+    //Make MVP Matrix
+    //mat4 MVP = u_P * u_V * u_M;
+    glm::mat4 v = (mCampPtr)->GetViewMatrix();
+    glm::mat4 p = (mCampPtr)->GetProjectionMatrix();
+    glm::mat4 MVP = p * v * ModelMatrix;
 
+    //pass them to program
+    GLint model = glGetUniformLocation(Shader->GetShaderID(), "u_M");
 
 }
 void debug_system::draw_segment(vec3 s, vec3 e, vec4 color)

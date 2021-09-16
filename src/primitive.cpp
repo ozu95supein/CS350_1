@@ -2,28 +2,6 @@
 
 primitive::primitive(P_TYPE p)	//constructor that will make primitives based on the type that is passed
 {
-	/*
-	switch (p)
-	{
-	case E_POINT:
-		mType = p;
-		break;
-	case E_LINE:
-		mType = p;
-		break;
-	case E_TRIANGLE:
-		mType = p;
-		break;
-	case E_PLANE:
-		mType = p;
-		break;
-	case E_AABB:
-		mType = p;
-		break;
-	case E_SPHEREDISC:
-		mType = p;
-		break;
-	}*/
 	mType = p;
 	//initialize everything to 0;
 	mVBO = 0;
@@ -40,6 +18,7 @@ void primitive::AddDebugVertex(glm::vec3 p, glm::vec4 c)
 {
 	DebugVertex v(p, c);
 	mVertexList.push_back(v);
+	GenerateVertexBuffers();
 }
 void primitive::GenerateVertexBuffers()
 {
@@ -73,7 +52,15 @@ void primitive::GeneratePointBuffers(GLuint& vbo, GLuint& vao)
 	//bind so we are now doing stuff to the vao
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	//TOOD FIX
-	glBufferData(GL_ARRAY_BUFFER, (sizeof(DebugVertex)), (const void*)&(*(mVertexList.begin())), GL_STATIC_DRAW);
 
+	glBufferData(GL_ARRAY_BUFFER, (sizeof(DebugVertex)), (const void*)&(*(mVertexList.begin())), GL_STATIC_DRAW);
+	//positions
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, 0);
+	//color
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, stride, 0);
+	// Unbind
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
