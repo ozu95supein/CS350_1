@@ -2,31 +2,47 @@
 
 ShaderClass::ShaderClass(char const* v, char const* f)
 {
-	GLuint ID = glCreateProgram();
-    if (ID == 0)
+    char infoLog[512];
+    int success;
+    unsigned int vert_ID;
+    unsigned int frag_ID;
+    vert_ID = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vert_ID, 1, &v, NULL);
+    glCompileShader(vert_ID);
+    // print compile errors if any
+    glGetShaderiv(vert_ID, GL_COMPILE_STATUS, &success);
+    if (!success)
     {
-        std::cout << "Unable to create shader program." << std::endl;
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << std::endl;
+        exit(EXIT_FAILURE);
+    };
+    // fragment Shader
+    frag_ID = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(frag_ID, 1, &f, NULL);
+    glCompileShader(frag_ID);
+    // print compile errors if any
+    glGetShaderiv(frag_ID, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << std::endl;
+        exit(EXIT_FAILURE);
+    };
+    // create complete shader Program
+    mShaderProgramID = glCreateProgram();
+    glAttachShader(mShaderProgramID, vert_ID);
+    glAttachShader(mShaderProgramID, frag_ID);
+    glLinkProgram(mShaderProgramID);
+    // print linking errors if any
+    glGetProgramiv(mShaderProgramID, GL_LINK_STATUS, &success);
+    if (!success)
+    {
+        glGetProgramInfoLog(mShaderProgramID, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
         exit(EXIT_FAILURE);
     }
-    // vertex shader
-    if (CompileAttachShader(ID, v, GL_VERTEX_SHADER) == 0)
-    {
-        std::cout << "Unable to create VERTEX shader program." << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    // fragment shader
-    if (CompileAttachShader(ID, f, GL_FRAGMENT_SHADER) == 0)
-    {
-        std::cout << "Unable to create FRAG shader program." << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    //Link the programs together
-    if (LinkProgram(ID) == 0)
-    {
-        std::cout << "Unable to LINK shader program." << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    mShaderProgramID = ID;
+    // delete the shaders as they're linked into our program now and no longer necessary
+    glDeleteShader(vert_ID);
+    glDeleteShader(frag_ID);
 }
 ShaderClass::~ShaderClass()
 {
