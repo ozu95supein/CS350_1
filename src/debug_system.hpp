@@ -11,6 +11,9 @@ class debug_system
       camera const * mCampPtr;
       ShaderClass * mShader;
       primitive* mPoint;
+      primitive* mSegment;
+      primitive* mTriangle;
+      primitive* mAABB;
       
   public:
     debug_system(camera const* c);

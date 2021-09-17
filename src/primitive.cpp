@@ -23,6 +23,11 @@ void primitive::AddDebugVertex(glm::vec3 p)
 	DebugVertex v(p);
 	mVertexList.push_back(v);
 }
+void primitive::TranslateVertexByIndex(unsigned int index, glm::vec3 newpos)
+{
+	glm::vec3* v = &(mVertexList[index].position);
+	*v = newpos;
+}
 void primitive::GenerateVertexBuffers()
 {
 	switch (mType)
@@ -30,9 +35,11 @@ void primitive::GenerateVertexBuffers()
 	case E_POINT:
 		GeneratePointBuffers(mVBO, mVAO);
 		break;
-	case E_LINE:
+	case E_SEGMENT:
+		GeneratePointBuffers(mVBO, mVAO);	//no reason not to do it this way as well
 		break;
 	case E_TRIANGLE:
+		GeneratePointBuffers(mVBO, mVAO);	//no reason not to do it this way as well
 		break;
 	case E_PLANE:
 		break;
@@ -64,6 +71,7 @@ void primitive::GeneratePointBuffers(GLuint& vbo, GLuint& vao)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
+
 GLuint primitive::GetVAO()
 {
 	return mVAO;

@@ -32,10 +32,32 @@ debug_system::debug_system(camera const* c)
     mCampPtr = c;
     mShader = new ShaderClass(c_vertex_shader, c_fragment_shader);
     // primitives ...
-     //create a primitive
+     //create a point
     mPoint = new primitive(E_POINT);
     mPoint->AddDebugVertex(glm::vec3(0.0f, 0.0f, 0.0f)); // MODEL SPACE
     mPoint->GenerateVertexBuffers();
+    // segment
+    mSegment = new primitive(E_SEGMENT);
+    mSegment->AddDebugVertex(glm::vec3(0.0f, 0.0f, 0.0f)); // MODEL SPACE
+    mSegment->AddDebugVertex(glm::vec3(1.0f, 1.0f, 1.0f)); // MODEL SPACE
+    mSegment->GenerateVertexBuffers();  
+    // triangle
+    mTriangle = new primitive(E_TRIANGLE);  //ABC
+    mTriangle->AddDebugVertex(glm::vec3(-0.5f, -0.5f, 0.0f));
+    mTriangle->AddDebugVertex(glm::vec3(0.5f, -0.5f, 0.0f));
+    mTriangle->AddDebugVertex(glm::vec3(0.0f, 0.5f, 0.0f));
+    mSegment->GenerateVertexBuffers();
+    //AABB
+    mAABB = new primitive(E_AABB);
+    mTriangle->AddDebugVertex(glm::vec3(0.0f, 0.0f, 0.0f));   
+    mTriangle->AddDebugVertex(glm::vec3(0.0f, 0.0f, 0.0f));   
+    mTriangle->AddDebugVertex(glm::vec3(0.0f, 0.0f, 0.0f));   
+    mTriangle->AddDebugVertex(glm::vec3(0.0f, 0.0f, 0.0f));   
+    mTriangle->AddDebugVertex(glm::vec3(0.0f, 0.0f, 0.0f));   
+    mTriangle->AddDebugVertex(glm::vec3(0.0f, 0.0f, 0.0f));   
+    mTriangle->AddDebugVertex(glm::vec3(0.0f, 0.0f, 0.0f));   
+    mTriangle->AddDebugVertex(glm::vec3(0.0f, 0.0f, 0.0f));   
+    
 }
 debug_system::~debug_system()
 {
@@ -48,7 +70,6 @@ debug_system::~debug_system()
 }
 void debug_system::draw_point(vec3 pt, vec4 color)
 {
-   
     //enable backface culling
     glCullFace(GL_BACK);
     glUseProgram(mShader->GetShaderID());
@@ -76,7 +97,36 @@ void debug_system::draw_point(vec3 pt, vec4 color)
 }
 void debug_system::draw_segment(vec3 s, vec3 e, vec4 color)
 {
+    //translate both start and end of segment to s and e
+    mSegment->TranslateVertexByIndex(0, s);
+    mSegment->TranslateVertexByIndex(1, e);
 
+    //enable backface culling
+    glCullFace(GL_BACK);
+    glUseProgram(mShader->GetShaderID());
+    //create matrices
+    glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), s);
+    //get a direction vector
+    glm::vec3 dir = e - s;
+    float d = dir.length();
+    glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(0.0f), glm::vec3(0.0, 0.0, 1.0));
+    glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(d, d, d));
+    //model matrix
+    glm::mat4 ModelMatrix = translationMatrix * rotationMatrix * scaleMatrix;//world space
+
+    //Make MVP Matrix
+    //mat4 MVP = u_P * u_V * u_M;
+    glm::mat4 v = (mCampPtr)->GetViewMatrix();
+    glm::mat4 p = (mCampPtr)->GetProjectionMatrix();
+    glm::mat4 MVP = p * v * ModelMatrix;
+    //pass them to program
+    glUniformMatrix4fv(0, 1, GL_FALSE, &(MVP[0][0]));
+    glUniform4fv(1, 1, &(color[0]));
+
+    //bind vao
+    glBindVertexArray(mSegment->GetVAO());
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glDrawArrays(GL_LINES, 0, 2);
 }
 void debug_system::draw_triangle(vec3 a, vec3 b, vec3 c, vec4 color)
 {

@@ -8,7 +8,7 @@ struct DebugVertex
 	DebugVertex(glm::vec3 p) : position(p){}
 	glm::vec3 position;
 };
-enum P_TYPE {E_POINT = 0, E_LINE = 1, E_TRIANGLE = 2, E_PLANE = 3, E_AABB = 4, E_SPHEREDISC = 5};
+enum P_TYPE {E_POINT = 0, E_SEGMENT = 1, E_TRIANGLE = 2, E_PLANE = 3, E_AABB = 4, E_SPHEREDISC = 5};
 class primitive
 {
 private:
@@ -22,6 +22,7 @@ public:
 	void AddDebugVertex(glm::vec3 p);
 	void GenerateVertexBuffers();
 	void GeneratePointBuffers(GLuint& vbo, GLuint& vao);
+	void TranslateVertexByIndex(unsigned int index, glm::vec3 newpos);
 	GLuint GetVAO();
 	GLuint GetVBO();
 };
