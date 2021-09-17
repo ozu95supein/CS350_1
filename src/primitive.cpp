@@ -10,15 +10,18 @@ primitive::primitive(P_TYPE p)	//constructor that will make primitives based on 
 }
 primitive::~primitive()
 {
+	// Delete the VBOs
+	glDeleteBuffers(1, &mVBO);
+	// Delete the VAO
+	glDeleteVertexArrays(1, &mVAO);
 	mVBO = 0;
 	mVAO = 0;
 	mVertexList.clear();
 }
-void primitive::AddDebugVertex(glm::vec3 p, glm::vec4 c)
+void primitive::AddDebugVertex(glm::vec3 p)
 {
-	DebugVertex v(p, c);
+	DebugVertex v(p);
 	mVertexList.push_back(v);
-	GenerateVertexBuffers();
 }
 void primitive::GenerateVertexBuffers()
 {
@@ -57,18 +60,15 @@ void primitive::GeneratePointBuffers(GLuint& vbo, GLuint& vao)
 	//positions
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, 0);
-	//color
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, stride, 0);
 	// Unbind
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
 GLuint primitive::GetVAO()
 {
-
+	return mVAO;
 }
 GLuint primitive::GetVBO()
 {
-
+	return mVBO;
 }

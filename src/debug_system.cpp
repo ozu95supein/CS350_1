@@ -31,18 +31,24 @@ debug_system::debug_system(camera const* c)
 {
     mCampPtr = c;
     mShader = new ShaderClass(c_vertex_shader, c_fragment_shader);
-    
+    // primitives ...
+     //create a primitive
+    mPoint = new primitive(E_POINT);
+    mPoint->AddDebugVertex(glm::vec3(0.0f, 0.0f, 0.0f)); // MODEL SPACE
+    mPoint->GenerateVertexBuffers();
 }
 debug_system::~debug_system()
 {
+    //DELETE ALL SHADERS
     delete(mShader);
     mShader = NULL;
+    //DELETE ALL PRIMITIVES
+    delete(mPoint);
+    mPoint = NULL;
 }
 void debug_system::draw_point(vec3 pt, vec4 color)
 {
-    //create a primitive
-    primitive PrimitivePoint(E_POINT);
-    PrimitivePoint.AddDebugVertex(pt, color);
+   
     //enable backface culling
     glCullFace(GL_BACK);
     glUseProgram(mShader->GetShaderID());
@@ -60,10 +66,13 @@ void debug_system::draw_point(vec3 pt, vec4 color)
     glm::mat4 MVP = p * v * ModelMatrix;
 
     //pass them to program
-    GLint mvp = glGetUniformLocation(mShader->GetShaderID(), "uniform_mvp");
-    glUniformMatrix4fv(mvp, 1, GL_FALSE, &(MVP[0][0]));
+    glUniformMatrix4fv(0, 1, GL_FALSE, &(MVP[0][0]));
+    glUniform4fv(1, 1, &(color[0]));
+
     //bind vao
-    glBindVertexArray();
+    glBindVertexArray(mPoint->GetVAO());
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glDrawArrays(GL_POINTS, 0, 1);
 }
 void debug_system::draw_segment(vec3 s, vec3 e, vec4 color)
 {

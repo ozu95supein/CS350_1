@@ -2,13 +2,16 @@
 #define __DEBUG_SYSTEM_HPP__
 #include "camera.hpp"
 
+class primitive;
 class ShaderClass;
 
 class debug_system
 {
   private:
-      camera * mCampPtr;
+      camera const * mCampPtr;
       ShaderClass * mShader;
+      primitive* mPoint;
+      
   public:
     debug_system(camera const* c);
     ~debug_system();

@@ -6,6 +6,12 @@
 class camera
 {
   private:
+      glm::vec3 mCamPos;
+      glm::vec3 mCamTGT;
+      float mfov_deg;
+      glm::ivec2 mwindow_size;
+      float mnear;
+      float mfar;
       mat4 mViewMatrix;
       mat4 mProjectionMatrix;
   public:
@@ -17,8 +23,9 @@ class camera
     //STUDENT
     camera();   
     ~camera();
-    mat4 GetViewMatrix();
-    mat4 GetProjectionMatrix();
+    mat4 GetViewMatrix() const;
+    mat4 GetProjectionMatrix() const;
+    void ConstructMatrices();
 };
 
 #endif // __CAMERA_HPP__

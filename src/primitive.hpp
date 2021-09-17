@@ -5,9 +5,8 @@
 #include <vector>
 struct DebugVertex
 {
-	DebugVertex(glm::vec3 p, glm::vec4 c) : position(p), color(c) {}
+	DebugVertex(glm::vec3 p) : position(p){}
 	glm::vec3 position;
-	glm::vec4 color;
 };
 enum P_TYPE {E_POINT = 0, E_LINE = 1, E_TRIANGLE = 2, E_PLANE = 3, E_AABB = 4, E_SPHEREDISC = 5};
 class primitive
@@ -20,7 +19,7 @@ private:
 public:
 	primitive(P_TYPE p);	//constructor that will make primitives based on the type that is passed
 	~primitive();
-	void AddDebugVertex(glm::vec3 p, glm::vec4 c);
+	void AddDebugVertex(glm::vec3 p);
 	void GenerateVertexBuffers();
 	void GeneratePointBuffers(GLuint& vbo, GLuint& vao);
 	GLuint GetVAO();
