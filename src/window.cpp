@@ -10,6 +10,42 @@ static void custom_key_callback(GLFWwindow* window, int key, int scancode, int a
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
+	if (key == GLFW_KEY_W && action == GLFW_PRESS)
+	{
+		
+	}
+	if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	{
+
+	}
+	if (key == GLFW_KEY_S && action == GLFW_PRESS)
+	{
+
+	}
+	if (key == GLFW_KEY_D && action == GLFW_PRESS)
+	{
+
+	}
+	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+	{
+
+	}
+	if (key == GLFW_KEY_LEFT_CONTROL && action == GLFW_PRESS)
+	{
+
+	}
+	if (key == GLFW_KEY_LEFT_SHIFT && action == GLFW_PRESS)
+	{
+
+	}
+	if (key == GLFW_KEY_W && action == GLFW_PRESS)
+	{
+
+	}
+	if (key == GLFW_KEY_W && action == GLFW_PRESS)
+	{
+
+	}
 }
 window::window(int w, int h, const char* window_name, bool visible)
 {
