@@ -14,6 +14,7 @@ class debug_system
       primitive* mSegment;
       primitive* mTriangle;
       primitive* mAABB;
+      primitive* mPlane;
       
   public:
     debug_system(camera const* c);

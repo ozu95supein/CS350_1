@@ -16,6 +16,7 @@ private:
 	P_TYPE mType;
 	GLuint mVBO;
 	GLuint mVAO;
+	float mDistance;
 public:
 	primitive(P_TYPE p);	//constructor that will make primitives based on the type that is passed
 	~primitive();

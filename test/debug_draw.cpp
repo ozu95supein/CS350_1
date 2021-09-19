@@ -67,7 +67,7 @@ TEST(basic, draw_segment)
 
     save_screenshoot(window_width, window_height, current_test_image_filename());
 }
-/*
+
 TEST(basic, draw_triangle)
 {
     window w(window_width, window_height, test_name(), false);
@@ -80,7 +80,7 @@ TEST(basic, draw_triangle)
     debug.draw_triangle({-2, 1, 0}, {-3, -1, 0}, {-1, -1, 0}, {0, 1, 0, 1});
 
     save_screenshoot(window_width, window_height, current_test_image_filename());
-}*/
+}
 TEST(basic, draw_aabb)
 {
     window w(window_width, window_height, test_name(), false);
@@ -118,7 +118,7 @@ TEST(basic, draw_aabb)
 
     save_screenshoot(window_width, window_height, current_test_image_filename());
 }
-/*
+
 TEST(basic, draw_plane)
 {
     window w(window_width, window_height, test_name(), false);
@@ -137,7 +137,7 @@ TEST(basic, draw_plane)
 
     save_screenshoot(window_width, window_height, current_test_image_filename());
 }
-
+/*
 TEST(basic, draw_spheres)
 {
     window w(window_width, window_height, test_name(), false);

@@ -6,6 +6,8 @@ primitive::primitive(P_TYPE p)	//constructor that will make primitives based on 
 	//initialize everything to 0;
 	mVBO = 0;
 	mVAO = 0;
+	mDistance = 0;
+
 	mVertexList.clear();
 }
 primitive::~primitive()
@@ -30,24 +32,7 @@ void primitive::TranslateVertexByIndex(unsigned int index, glm::vec3 newpos)
 }
 void primitive::GenerateVertexBuffers()
 {
-	switch (mType)
-	{
-	case E_POINT:
-		GeneratePointBuffers(mVBO, mVAO);
-		break;
-	case E_SEGMENT:
-		GeneratePointBuffers(mVBO, mVAO);	//no reason not to do it this way as well
-		break;
-	case E_TRIANGLE:
-		GeneratePointBuffers(mVBO, mVAO);	//no reason not to do it this way as well
-		break;
-	case E_PLANE:
-		break;
-	case E_AABB:
-		break;
-	case E_SPHEREDISC:
-		break;
-	}
+	GeneratePointBuffers(mVBO, mVAO);	//no reason not to do it this way as well
 }
 void primitive::GeneratePointBuffers(GLuint& vbo, GLuint& vao)
 {	   //keeping this for the future just in case
