@@ -2,7 +2,7 @@
 #define __WINDOW_HPP__
 
 #include "opengl.hpp"
-
+class camera;
 class window
 {
   private:
@@ -12,6 +12,7 @@ class window
     ~window();
     bool update();
     void destroy(); //unused for now
+    GLFWwindow* GetWindowPointer();
 };
 
 #endif // __WINDOW_HPP__

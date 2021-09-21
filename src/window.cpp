@@ -1,5 +1,5 @@
 #include "window.hpp"
-
+#include "camera.hpp"
 static void custom_error_callback(int error, const char* description)
 {
 	std::cout<< "Error number:  "<< error << ", "<< description <<std::endl;
@@ -10,42 +10,6 @@ static void custom_key_callback(GLFWwindow* window, int key, int scancode, int a
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
-	if (key == GLFW_KEY_W && action == GLFW_PRESS)
-	{
-		
-	}
-	if (key == GLFW_KEY_A && action == GLFW_PRESS)
-	{
-
-	}
-	if (key == GLFW_KEY_S && action == GLFW_PRESS)
-	{
-
-	}
-	if (key == GLFW_KEY_D && action == GLFW_PRESS)
-	{
-
-	}
-	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
-	{
-
-	}
-	if (key == GLFW_KEY_LEFT_CONTROL && action == GLFW_PRESS)
-	{
-
-	}
-	if (key == GLFW_KEY_LEFT_SHIFT && action == GLFW_PRESS)
-	{
-
-	}
-	if (key == GLFW_KEY_W && action == GLFW_PRESS)
-	{
-
-	}
-	if (key == GLFW_KEY_W && action == GLFW_PRESS)
-	{
-
-	}
 }
 window::window(int w, int h, const char* window_name, bool visible)
 {
@@ -70,7 +34,7 @@ window::window(int w, int h, const char* window_name, bool visible)
 	}
 	//sets initial visibility
 	glfwWindowHint(GLFW_VISIBLE, visible);
-	//sets the key callback so when we press escape key it sets the windowshould close bool to true
+	//sets the key callback so when we press  key it sets the windowshould close bool to true
 	glfwSetKeyCallback(mWindow, custom_key_callback);
 	//This function makes the OpenGL or OpenGL ES context of the specified window
 	glfwMakeContextCurrent(mWindow);
@@ -114,4 +78,8 @@ bool window::update()
 		destroy();
 		return false;
 	}
+}
+GLFWwindow* window::GetWindowPointer()
+{
+	return mWindow;
 }
